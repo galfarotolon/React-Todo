@@ -28,7 +28,7 @@ class App extends React.Component {
     this.state = {
       name: "Guillermo",
       task: tasks,
-      text: "",
+
 
     };
 
@@ -41,7 +41,7 @@ class App extends React.Component {
 
     const newTask = {
 
-      task: `-${taskName}`,
+      task: `- ${taskName}`,
       id: Date.now(),
       completed: false,
     };
@@ -74,14 +74,23 @@ class App extends React.Component {
     });
   };
 
+  removeItem = (e) => {
+    e.preventDefault();
+
+    this.setState({
+      ...this.state,
+      task: this.state.task.filter((item) => !item.completed)
+    })
+  }
 
   render() {
     return (
       <div className="toDoApp">
         <h2>Welcome to your To-do App, {this.state.name}</h2>
 
-        <TodoForm propsTask={this.state.task} addTask={this.addTask} />
+        <TodoForm propsTask={this.state.task} addTask={this.addTask} removeItem={this.removeItem} />
         <TodoList propsTask={this.state.task} toggleItem={this.toggleItem} />
+
 
       </div>
     );

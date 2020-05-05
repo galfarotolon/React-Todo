@@ -9,7 +9,7 @@ class TodoForm extends React.Component {
         super();
         this.state = {
             task: "",
-            completed: false,
+
         };
     }
 
@@ -30,18 +30,11 @@ class TodoForm extends React.Component {
         })
     }
 
-    removeItem = (e) => {
-        e.preventDefault();
 
-        this.setState({
-
-            task: this.state.task.filter((listItem) => listItem.completed === true)
-        })
-    }
 
 
     render() {
-        console.log(this.state.task)
+
         return (
             <form>
 
@@ -56,7 +49,7 @@ class TodoForm extends React.Component {
 
                 <button onClick={this.submitForm}> + Add</button >
                 <br />
-                <button onClick={() => this.removeItem}>Clear Completed</button>
+                <button onClick={this.props.removeItem}>Clear Completed</button>
             </form >
         )
     }

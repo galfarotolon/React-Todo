@@ -5,9 +5,6 @@ import Todo from "./Todo.js";
 function TodoList(props) {
 
 
-    console.log(props.propsTask);
-
-
     return (
         <div>
             {props.propsTask.map((item) => (
