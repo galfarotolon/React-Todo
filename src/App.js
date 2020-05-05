@@ -1,5 +1,21 @@
 import React from 'react';
 import TodoForm from "./components/TodoForm"
+import TodoList from "./components/TodoList"
+import Todo from "./components/Todo"
+
+
+export const tasks = [
+
+  {
+
+    task: "Add list items below",
+    id: 1,
+    completed: false,
+
+  }
+
+
+]
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -11,26 +27,61 @@ class App extends React.Component {
     super();
     this.state = {
       name: "Guillermo",
-      task: "",
-      id: Date.now(),
-      completed: false,
+      task: tasks,
+      text: "",
 
     };
 
 
   }
 
-  handleChange = e => {
-    this.setState({ task: e.target.value });
+
+  addTask = (taskName) => {
+
+
+    const newTask = {
+
+      task: `-${taskName}`,
+      id: Date.now(),
+      completed: false,
+    };
+
+    this.setState({
+
+      task: [...this.state.task, newTask]
+
+    });
+
   }
+
+
+
+  toggleItem = id => {
+    const newTodoList = this.state.task.map(item => {
+      if (item.id === id) {
+        return {
+          ...item,
+          completed: !item.completed
+        };
+      } else {
+        return item;
+      }
+    });
+    // update todoList
+    this.setState({
+      ...this.state,
+      task: newTodoList
+    });
+  };
+
 
   render() {
     return (
-      <div>
+      <div className="toDoApp">
         <h2>Welcome to your To-do App, {this.state.name}</h2>
 
-        <TodoForm propsTask={this.state.task} propsHandleChange={this.handleChange} />
-
+        <TodoForm propsTask={this.state.task} addTask={this.addTask} />
+        <TodoList propsTask={this.state.task} toggleItem={this.toggleItem} />
 
       </div>
     );
